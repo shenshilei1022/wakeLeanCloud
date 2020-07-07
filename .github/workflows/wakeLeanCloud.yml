@@ -1,0 +1,19 @@
+name: 'Github Actions Wake LeanCloud'
+
+# 触发条件
+on:
+  push:
+  schedule:
+    - cron: '*/25 0-15 * * ?' # 北京时间 8:00 - 23:59, 每25分钟触发一次
+
+# 运行流程
+jobs:
+  curl-my-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'wake'
+        env: 
+          MY_SITE: ${{ secrets.SITE }}
+        # 发送GET请求
+        run:
+          curl $MY_SITE
